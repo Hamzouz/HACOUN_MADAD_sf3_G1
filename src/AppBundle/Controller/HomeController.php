@@ -45,18 +45,13 @@ class HomeController extends Controller
         $em = $this->getDoctrine()->getManager();
         $articleRepository = $em->getRepository('AppBundle:Article\Article');
 
-       /* $article  = new Article();
-        $article->setTitle('Osef du title')
-                ->setContent('Bonjour voici un test')
-                ->setTag('osef')
-                ->setCreatedAt(new \DateTime());
-
-        $em->persist($article);
-        $em->flush();*/
-
         $articles = $articleRepository->findAll();
 
-        return new Response('Article creted');
+        dump($articles);
+
+        return $this->render('AppBundle:Home:index.html.twig', [
+            'articles' => $articles,
+        ]);
 
     }
 }
