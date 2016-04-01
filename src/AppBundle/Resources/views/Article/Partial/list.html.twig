@@ -1,0 +1,9 @@
+<p>List of tutorials</p>
+<ul>
+    {% for tutorial in tutorials %}
+        <li>id: {{ tutorial.id }}</li>
+        <ul>
+            <li>name: {{ tutorial.name }}</li>
+        </ul>
+    {% endfor %}
+</ul>
