@@ -14,6 +14,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+    {% block navbar %}
     <nav class="navbar navbar-default">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -24,18 +25,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Hamza MADAD</a>
+                <a class="navbar-brand" href="{{ path('article_list') }}">Hamza MADAD</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{ path('article_list') }}">Liste</a></li>
-                    <li><a href="#">Créer</a></li>
+                    <li><a href="{{ path('article_new') }}">Créer</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
+    {% endblock %}
         {% block body %}
             <div class="container">
         {% endblock %}

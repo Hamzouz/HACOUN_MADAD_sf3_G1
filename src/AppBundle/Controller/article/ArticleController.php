@@ -13,34 +13,54 @@ class ArticleController extends Controller
 {
 
     /**
-     * @Route("/{id}", requirements = {"id" = "\d+"}, name ="article_show")
+     * @Route("/show/{id}", requirements = {"id" = "\d+"}, name ="article_show")
      *
      * @param $id
      */
-    public function showAction($id, Request $request)
+    public function showAction($id)
     {
-        $tag = $request->query->get('tag');
-        return new Response('Article avec l\'id '.$id.' avec le tag: '.$tag);
+        $em = $this->getDoctrine()->getManager();
+        $articleRepository = $em->getRepository('AppBundle:Article\Article');
+
+        $article = $articleRepository->find($id);
+
+        return $this->render('AppBundle:Article:single.html.twig', [
+            'article' => $article,
+        ]);
     }
 
     /**
      * @Route("/list", name="article_list")
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
-
-        $em = $this->getDoctrine()->getManager();
-        $articleRepository = $em->getRepository('AppBundle:Article\Article');
-
-        $author = 'moi';
-
-        $articles = $articleRepository->findBy([
-            'author' => $author,
-        ]);
+        $tag = $request->query->get('tag');
+        if ($tag == "") {
+            $em = $this->getDoctrine()->getManager();
+            $articleRepository = $em->getRepository('AppBundle:Article\Article');
 
 
-        dump($articles) ;
-        return new Response('List of articles');
+
+            $articles = $articleRepository->findBy(array(), array('createdAt' => 'DESC'));
+
+            return $this->render('AppBundle:Article/Partial:list.html.twig', [
+                'articles' => $articles,
+            ]);
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $articleRepository = $em->getRepository('AppBundle:Article\Article');
+
+            $tag = $request->query->get('tag');
+
+            $articles = $articleRepository->findBy([
+                'tag' => $tag,
+            ]);
+
+            return $this->render('AppBundle:Article/Partial:list.html.twig', [
+                'articles' => $articles,
+            ]);
+        }
+
     }
 
 
@@ -59,17 +79,6 @@ class ArticleController extends Controller
 
             return $this->redirectToRoute('article_list');
         }
-
-        /*$article  = new Article();
-         $article->setTitle('Osef du title')
-                 ->setContent('Bonjour voici un test')
-                 ->setTag('osef')
-                 ->setAuthor('Moi')
-                 ->setCreatedAt(new \DateTime());
-        $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
-        */
 
         return $this->render('AppBundle:Article:new.html.twig', [
             'form' => $form->createView(),

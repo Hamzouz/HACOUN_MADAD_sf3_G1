@@ -1,0 +1,18 @@
+<p>Liste article avec le tag</p>
+
+<div class="row">
+    {% for article in articles %}
+
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3><a href="{{ path('article_show', {'id': article.id}) }}">{{ article.title }}</a></h3>
+                    <p>{{ article.content }}</p>
+                    <p class="pull-right">{{ article.createdAt | date('m/d/Y H:i') }}</p>
+                    <p><a href="{{ path('article_list', {'tag': article.tag}) }}" class="btn btn-primary" role="button">{{ article.tag }}</a></p>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+</div>

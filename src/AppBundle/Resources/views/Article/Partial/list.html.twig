@@ -1,12 +1,40 @@
-<p>Liste des </p>
-<ul>
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    {{ parent() ~ ' - Home' }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+<p>Liste des Articles</p>
+
+<div class="row">
     {% for article in articles %}
 
-        <div class="jumbotron">
-            <h1><a href="{{ path('article_show', {'id': article.id}) }}">{{ article.title }}</a></h1>
-            <p>{{ article.content }}</p>
-            <p class="pull-right">{{ article.createdAt | date('m/d/Y H:i') }}</p>
-            <p><a class="{{ path('article_list', {'tag': article.tag}) }}" href="#" role="button">{{ article.tag }}</a></p>
-        </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3><a href="{{ path('article_show', {'id': article.id}) }}">{{ article.title }}</a></h3>
+                        <p>{{ article.content }}</p>
+                        <p class="pull-right">{{ article.createdAt | date('m/d/Y H:i') }}</p>
+                        {% if(article.tag == "") %}
+                        <p><a href="{{ path('article_list', {'tag': article.tag}) }}" class="btn btn-warning" role="button">No Tag</a></p>
+                        {% else %}
+                            <p><a href="{{ path('article_list', {'tag': article.tag}) }}" class="btn btn-primary" role="button">{{ article.tag }}</a></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
     {% endfor %}
-</ul>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    {{ parent() ~ ' - Home' }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="row">
+            <div class="jumbotron">
+                <h1>{{ article.title }}</h1>
+                <p>{{ article.content }}</p>
+                <p><a class="btn btn-primary btn-lg" href="{{ path('article_list', {'tag': article.tag}) }}" role="button">{{ article.tag }}</a></p>
+                <p class="pull-right">{{ article.createdAt | date('m/d/Y H:i') }}</p>
+            </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
