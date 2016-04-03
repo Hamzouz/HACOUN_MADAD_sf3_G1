@@ -1,12 +1,12 @@
-<p>List of tutorials</p>
+<p>Liste des </p>
 <ul>
     {% for article in articles %}
-        <li>
-            <h3><a href="{{ path('article_show', {'id': article.id}) }}">{{ article.title }}</a></h3>
+
+        <div class="jumbotron">
+            <h1><a href="{{ path('article_show', {'id': article.id}) }}">{{ article.title }}</a></h1>
             <p>{{ article.content }}</p>
-            <h4>{{ article.author }}</h4>
-            {{ article.createdAt | date('m/d/Y H:i') }}
-            <a href="{{ path('article_list', {'tag': article.tag}) }}"><p>{{ article.tag }}</p></a>
-        </li>
+            <p class="pull-right">{{ article.createdAt | date('m/d/Y H:i') }}</p>
+            <p><a class="{{ path('article_list', {'tag': article.tag}) }}" href="#" role="button">{{ article.tag }}</a></p>
+        </div>
     {% endfor %}
 </ul>

@@ -1,4 +1,7 @@
 {% extends "::base.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
 
 {% block title %}
     {{ parent() ~ ' - New Article' }}
@@ -6,5 +9,29 @@
 
 {% block body %}
     {{ parent() }}
-    {{ form(form) }}
+    <h2>Ajour d'un article</h2>
+    <div class="article-form-container">
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_errors(form.title) }}
+            {{ form_widget(form.title, {'attr': {'placeholder': 'Titre'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_errors(form.content) }}
+            {{ form_widget(form.content, {'attr': {'placeholder': 'Texte'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_errors(form.tag) }}
+            {{ form_widget(form.tag, {'attr': {'placeholder': 'Tag'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_errors(form.author) }}
+            {{ form_widget(form.author, {'attr': {'placeholder': 'Auteur'}}) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
 {% endblock %}

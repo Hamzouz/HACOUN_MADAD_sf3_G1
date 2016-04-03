@@ -53,9 +53,11 @@ class ArticleController extends Controller
         $form->handleRequest($request);
 
         if($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();die;
+            $em = $this->getDoctrine()->getManager();
             $em->persist($form->getData());
             $em->flush();
+
+            return $this->redirectToRoute('article_list');
         }
 
         /*$article  = new Article();
