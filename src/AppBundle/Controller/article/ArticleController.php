@@ -58,6 +58,7 @@ class ArticleController extends Controller
 
             return $this->render('AppBundle:Article/Partial:list.html.twig', [
                 'articles' => $articles,
+                'tag' => $tag,
             ]);
         }
 

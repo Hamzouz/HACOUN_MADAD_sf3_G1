@@ -10,7 +10,12 @@
 
 {% block body %}
     {{ parent() }}
-<p>Liste des Articles</p>
+
+{% if(tag is defined) %}
+    <h2>Articles avec le tag: {{ tag }}</h2>
+{% else %}
+    <h2>Liste des articles</h2>
+{% endif %}
 
 <div class="row">
     {% for article in articles %}
@@ -19,13 +24,17 @@
                 <div class="thumbnail">
                     <div class="caption">
                         <h3><a href="{{ path('article_show', {'id': article.id}) }}">{{ article.title }}</a></h3>
-                        <p>{{ article.content }}</p>
-                        <p class="pull-right">{{ article.createdAt | date('m/d/Y H:i') }}</p>
                         {% if(article.tag == "") %}
-                        <p><a href="{{ path('article_list', {'tag': article.tag}) }}" class="btn btn-warning" role="button">No Tag</a></p>
+                        <p>Tag: <span style="color:red;">Pas de tag</span></p>
                         {% else %}
-                            <p><a href="{{ path('article_list', {'tag': article.tag}) }}" class="btn btn-primary" role="button">{{ article.tag }}</a></p>
+                            <p>tag: <a href="{{ path('article_list', {'tag': article.tag}) }}" class="btn btn-primary" role="button">{{ article.tag }}</a></p>
                         {% endif %}
+                        {% if(article.author == "") %}
+                            <p class="text-left">Auteur: <span style="color:red;">Pas d'auteur</span></p>
+                        {% else %}
+                            <p class="text-left">Auteur: {{ article.author }}</p>
+                        {% endif %}
+                        <p class="text-right">{{ article.createdAt | date('m/d/Y H:i') }}</p>
                     </div>
                 </div>
             </div>

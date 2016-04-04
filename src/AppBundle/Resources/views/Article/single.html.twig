@@ -15,7 +15,16 @@
             <div class="jumbotron">
                 <h1>{{ article.title }}</h1>
                 <p>{{ article.content }}</p>
-                <p><a class="btn btn-primary btn-lg" href="{{ path('article_list', {'tag': article.tag}) }}" role="button">{{ article.tag }}</a></p>
+                {% if(article.tag == "") %}
+                    <p>Tag: <span style="color:red;">Pas de tag</span></p>
+                {% else %}
+                    <p>tag: <a href="{{ path('article_list', {'tag': article.tag}) }}" class="btn btn-primary" role="button">{{ article.tag }}</a></p>
+                {% endif %}
+                {% if(article.author == "") %}
+                    <p class="text-left">Auteur: <span style="color:red;">Pas d'auteur</span></p>
+                {% else %}
+                    <p class="text-left">Auteur: {{ article.author }}</p>
+                {% endif %}
                 <p class="pull-right">{{ article.createdAt | date('m/d/Y H:i') }}</p>
             </div>
     </div>
